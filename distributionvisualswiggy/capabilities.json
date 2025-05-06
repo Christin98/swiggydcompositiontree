@@ -1,0 +1,32 @@
+{
+    "dataRoles": [
+      {
+        "name": "category",
+        "kind": "Grouping",
+        "displayName": "Category fields"
+      },
+      {
+        "name": "ftu",
+        "kind": "Measure",
+        "displayName": "FTU"
+      }
+    ],
+    "dataViewMappings": [
+      {
+        "table": {
+          "rows": {
+            "select": [
+              {
+                "for": { "in": "category" }
+              },
+              {
+                "bind": { "to": "ftu" }
+              }
+            ]
+          }
+        }
+      }
+    ],
+    "objects": {},
+    "privileges": []
+  }
