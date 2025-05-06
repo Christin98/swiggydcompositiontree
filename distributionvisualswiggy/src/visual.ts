@@ -33,7 +33,7 @@ export class Visual implements IVisual {
       const sel = document.createElement("select");
       sel.className = "three-level-dropdown";
       sel.setAttribute("data-level", lvl.toString());
-      sel.innerHTML = `<option value="" disabled selected>Level ${lvl}: select…</option>`;
+      sel.innerHTML = `<option value="" disabled selected>Select…</option>`;
       sel.onchange = () => {
         this.selected[lvl] = sel.value;
         this.redrawDropdowns();
@@ -116,7 +116,7 @@ export class Visual implements IVisual {
     this.summaryContainer.innerHTML = "";
     const lvl1Field = this.selected[1];
     if (!lvl1Field) return;
-
+  
     const cols = dv.table.columns as DataViewMetadataColumn[];
     const idx1 = cols.findIndex(c => c.displayName === lvl1Field);
     const idx2 = this.selected[2]
@@ -127,7 +127,7 @@ export class Visual implements IVisual {
       : -1;
     const ft = this.measureIndex;
     const rows = dv.table.rows as any[][];
-
+  
     // Compute grand total FTU (after search filter)
     const grandTotal = rows.reduce((sum, r) => {
       const key1 = String(r[idx1] ?? "");
@@ -135,7 +135,7 @@ export class Visual implements IVisual {
         return sum;
       return sum + (Number(r[ft]) || 0);
     }, 0);
-
+  
     // Group by level-1
     const map1 = new Map<string, any[]>();
     rows.forEach(r => {
@@ -144,23 +144,22 @@ export class Visual implements IVisual {
         return;
       (map1.get(k1) ?? map1.set(k1, []).get(k1)!).push(r);
     });
-
+  
     // Render each level-1 group
     map1.forEach((groupRows, k1) => {
       const total1 = groupRows.reduce((s, r) => s + (Number(r[ft]) || 0), 0);
       const pct1 = grandTotal ? (total1 / grandTotal) * 100 : 0;
-
+  
       // Level-1 Header
       const grp = document.createElement("div");
-      const der = document.createElement("img");
       grp.className = "summary-group";
-
+  
       const header = document.createElement("div");
       header.className = "summary-item";
       header.innerHTML = `
         <div class="summary-left">
           <div class="summary-label-row">
-            <img src="./assets/filter.png" class="summary-icon"/>
+            <img src="https://raw.githubusercontent.com/Christin98/swiggydcompositiontree/refs/heads/main/distributionvisualswiggy/assets/filter.png" class="summary-icon"/>
             <span class="summary-label">${k1}</span>
           </div>
           <div class="summary-bar-container">
@@ -169,20 +168,25 @@ export class Visual implements IVisual {
         </div>
         <div class="summary-value">${this.formatNum(total1)}</div>
       `;
-
+  
+      // Show the expand arrow only if filter 2 is selected
       const arrow1 = document.createElement("span");
       arrow1.className = "expand-arrow";
       const open1 = this.expandedLevel1.has(k1);
-      arrow1.textContent = open1 ? "˄" : "˅";
-      arrow1.onclick = () => {
-        open1
-          ? this.expandedLevel1.delete(k1)
-          : this.expandedLevel1.add(k1);
-        this.renderSummary(dv);
-      };
+      if (this.selected[2]) { // Check if filter 2 is selected
+        arrow1.textContent = open1 ? "˄" : "˅";
+        arrow1.onclick = () => {
+          open1
+            ? this.expandedLevel1.delete(k1)
+            : this.expandedLevel1.add(k1);
+          this.renderSummary(dv);
+        };
+      } else {
+        arrow1.style.display = "none"; // Hide the arrow if filter 2 is not selected
+      }
       header.appendChild(arrow1);
       grp.appendChild(header);
-
+  
       // Level-2 (accordion)
       if (idx2 >= 0 && this.expandedLevel1.has(k1)) {
         const map2 = new Map<string, any[]>();
@@ -190,39 +194,45 @@ export class Visual implements IVisual {
           const k2 = String(r[idx2] ?? "");
           (map2.get(k2) ?? map2.set(k2, []).get(k2)!).push(r);
         });
-
+  
         const subC = document.createElement("div");
         subC.className = "summary-subcontainer";
-
+  
         map2.forEach((subRows, k2) => {
           const total2 = subRows.reduce((s, r) => s + (Number(r[ft]) || 0), 0);
           const key2 = `${k1}||${k2}`;
           const open2 = this.expandedLevel2.has(key2);
-
+  
           const subHeader = document.createElement("div");
           subHeader.className = "summary-subitem";
           subHeader.innerHTML = `
             <div class="summary-left">
               <div class="summary-label-row">
-                <img src="./assets/filter.png" class="summary-icon"/>
+                <img src="https://raw.githubusercontent.com/Christin98/swiggydcompositiontree/refs/heads/main/distributionvisualswiggy/assets/filter.png" class="summary-icon"/>
                 <span class="summary-label">${k2}</span>
               </div>
             </div>
             <div class="summary-value">${this.formatNum(total2)}</div>
           `;
-
+  
+          // Show the expand arrow only if filter 3 is selected
           const arrow2 = document.createElement("span");
           arrow2.className = "expand-arrow";
-          arrow2.textContent = open2 ? "˄" : "˅";
-          arrow2.onclick = () => {
-            open2
-              ? this.expandedLevel2.delete(key2)
-              : this.expandedLevel2.add(key2);
-            this.renderSummary(dv);
-          };
+          const open3 = this.expandedLevel2.has(key2);
+          if (this.selected[3]) { // Check if filter 3 is selected
+            arrow2.textContent = open3 ? "˄" : "˅";
+            arrow2.onclick = () => {
+              open3
+                ? this.expandedLevel2.delete(key2)
+                : this.expandedLevel2.add(key2);
+              this.renderSummary(dv);
+            };
+          } else {
+            arrow2.style.display = "none"; // Hide the arrow if filter 3 is not selected
+          }
           subHeader.appendChild(arrow2);
           subC.appendChild(subHeader);
-
+  
           // Level-3 items
           if (idx3 >= 0 && open2) {
             const thirdC = document.createElement("div");
@@ -235,11 +245,9 @@ export class Visual implements IVisual {
             map3.forEach((v3, k3) => {
               const row3 = document.createElement("div");
               row3.className = "summary-thirditem";
-              der.src = "../assets/icon.png";
-              console.log('sdfsfsfds',der);
               row3.innerHTML = `
                 <div class="lvl3summary-left">
-                    <img src=".././assets/icon.png" class="summary-icon"/>
+                  <img src="https://raw.githubusercontent.com/Christin98/swiggydcompositiontree/refs/heads/main/distributionvisualswiggy/assets/filter.png" class="summary-icon"/>
                   <span class="third-label">${k3}</span>
                 </div>
                 <span class="third-value">${this.formatNum(v3)}</span>
@@ -249,13 +257,14 @@ export class Visual implements IVisual {
             subC.appendChild(thirdC);
           }
         });
-
+  
         grp.appendChild(subC);
       }
-
+  
       this.summaryContainer.appendChild(grp);
     });
   }
+  
 
   private formatNum(v: number) {
     if (v >= 1e6) return (v / 1e6).toFixed(1) + "M";

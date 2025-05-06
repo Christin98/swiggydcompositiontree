@@ -8,7 +8,7 @@
       {
         "name": "ftu",
         "kind": "Measure",
-        "displayName": "FTU"
+        "displayName": "Measure"
       }
     ],
     "dataViewMappings": [
@@ -28,5 +28,13 @@
       }
     ],
     "objects": {},
-    "privileges": []
+    "privileges": 
+    [{
+      "name": "WebAccess",
+      "essential": true,
+      "parameters": [
+          "https://*",
+          "http://*"
+      ]
+  }]
   }

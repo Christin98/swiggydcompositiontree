@@ -5,8 +5,8 @@ import VisualConstructorOptions = powerbiVisualsApi.extensibility.visual.VisualC
 import DialogConstructorOptions = powerbiVisualsApi.extensibility.visual.DialogConstructorOptions;
 var powerbiKey: any = "powerbi";
 var powerbi: any = window[powerbiKey];
-var distributionvisualswiggyEFB7F2422A0641C7A27BAC90EC208426_DEBUG: IVisualPlugin = {
-    name: 'distributionvisualswiggyEFB7F2422A0641C7A27BAC90EC208426_DEBUG',
+var distributionvisualswiggyEFB7F2422A0641C7A27BAC90EC208426: IVisualPlugin = {
+    name: 'distributionvisualswiggyEFB7F2422A0641C7A27BAC90EC208426',
     displayName: 'distribution_visual_swiggy',
     class: 'Visual',
     apiVersion: '5.11.0',
@@ -27,6 +27,6 @@ var distributionvisualswiggyEFB7F2422A0641C7A27BAC90EC208426_DEBUG: IVisualPlugi
 if (typeof powerbi !== "undefined") {
     powerbi.visuals = powerbi.visuals || {};
     powerbi.visuals.plugins = powerbi.visuals.plugins || {};
-    powerbi.visuals.plugins["distributionvisualswiggyEFB7F2422A0641C7A27BAC90EC208426_DEBUG"] = distributionvisualswiggyEFB7F2422A0641C7A27BAC90EC208426_DEBUG;
+    powerbi.visuals.plugins["distributionvisualswiggyEFB7F2422A0641C7A27BAC90EC208426"] = distributionvisualswiggyEFB7F2422A0641C7A27BAC90EC208426;
 }
-export default distributionvisualswiggyEFB7F2422A0641C7A27BAC90EC208426_DEBUG;
+export default distributionvisualswiggyEFB7F2422A0641C7A27BAC90EC208426;
