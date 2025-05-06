@@ -5,14 +5,14 @@
       "guid": "distributionvisualswiggyEFB7F2422A0641C7A27BAC90EC208426",
       "visualClassName": "Visual",
       "version": "1.0.0.0",
-      "description": "",
-      "supportUrl": "",
+      "description": "Destribution visual for Swiggy",
+      "supportUrl": "https//github.com/PowerBI-Visuals/PowerBI-visuals-swiggy",
       "gitHubUrl": ""
     },
     "apiVersion": "5.11.0",
     "author": {
       "name": "Christin",
-      "email": ""
+      "email": "christinkoshy1998@gmail.com"
     },
     "assets": {
       "icon": "assets/icon.png"

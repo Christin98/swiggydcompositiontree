@@ -1,0 +1,17 @@
+{
+		"version": "1.0.0.0",
+		"author": {"name":"Christin","email":"christinkoshy1998@gmail.com"},
+		"resources": [
+			{
+				"resourceId": "rId0",
+				"sourceType": 5,
+				"file": "resources/distributionvisualswiggyEFB7F2422A0641C7A27BAC90EC208426.pbiviz.json"
+			}
+		],
+		"visual": {"name":"distributionvisualswiggy","displayName":"distribution_visual_swiggy","guid":"distributionvisualswiggyEFB7F2422A0641C7A27BAC90EC208426","visualClassName":"Visual","version":"1.0.0.0","description":"Destribution visual for Swiggy","supportUrl":"https//github.com/PowerBI-Visuals/PowerBI-visuals-swiggy","gitHubUrl":""},
+		"metadata": {
+			"pbivizjson": {
+				"resourceId": "rId0"
+			}
+		}
+	}

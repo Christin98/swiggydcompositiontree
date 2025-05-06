@@ -1,4 +1,4 @@
 import powerbiVisualsApi from "powerbi-visuals-api";
 import IVisualPlugin = powerbiVisualsApi.visuals.plugins.IVisualPlugin;
-declare var distributionvisualswiggyEFB7F2422A0641C7A27BAC90EC208426_DEBUG: IVisualPlugin;
-export default distributionvisualswiggyEFB7F2422A0641C7A27BAC90EC208426_DEBUG;
+declare var distributionvisualswiggyEFB7F2422A0641C7A27BAC90EC208426: IVisualPlugin;
+export default distributionvisualswiggyEFB7F2422A0641C7A27BAC90EC208426;
