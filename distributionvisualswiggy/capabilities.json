@@ -13,20 +13,30 @@
     ],
     "dataViewMappings": [
       {
-        "table": {
-          "rows": {
-            "select": [
+          "conditions": [
               {
-                "for": { "in": "category" }
-              },
-              {
-                "bind": { "to": "ftu" }
+                  "category": {
+                      "max": 5
+                  },
+                  "measure": {
+                      "max": 1
+                  }
               }
-            ]
+          ],
+          "table": {
+            "rows": {
+              "select": [
+                {
+                  "for": { "in": "category" }
+                },
+                {
+                  "bind": { "to": "ftu" }
+                }
+              ]
+            }
           }
-        }
       }
-    ],
+  ],
     "objects": {},
     "privileges": 
     [{

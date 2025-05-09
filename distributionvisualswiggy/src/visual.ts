@@ -81,6 +81,7 @@ export class Visual implements IVisual {
 
   public update(options: VisualUpdateOptions) {
     const dv = options.dataViews?.[0];
+    console.log("update", options);
     if (!dv?.table || !dv.table.columns) return;
     this.lastDataView = dv;
 
